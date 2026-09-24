@@ -96,6 +96,44 @@
     </form>
     <div id="assistant-results" role="status" aria-live="polite"></div>
   </dialog>
-  <footer class="site-footer"><span>Cook &amp; Bake Academy</span><span>Learn it by making it.</span></footer>
+  <dialog class="signup-dialog" id="signup-dialog" aria-labelledby="signup-title">
+    <div class="assistant-head">
+      <div><p class="eyebrow">COURSE SIGN-UP</p><h2 id="signup-title">Sign up for a course</h2></div>
+      <button type="button" id="close-signup" class="dialog-close" aria-label="Close sign-up form">×</button>
+    </div>
+    <form id="signup-form" novalidate>
+      <fieldset class="signup-course-fields">
+        <legend>Selected course</legend>
+        <div class="signup-fields">
+          <div class="form-field"><label for="signup-code">Code</label><input id="signup-code" readonly></div>
+          <div class="form-field"><label for="signup-course-title">Title</label><input id="signup-course-title" readonly></div>
+          <div class="form-field"><label for="signup-fee">Fee</label><input id="signup-fee" readonly></div>
+          <div class="form-field"><label for="signup-weeks">Weeks</label><input id="signup-weeks" readonly></div>
+          <div class="form-field"><label for="signup-schedule">Schedule</label><input id="signup-schedule" readonly></div>
+          <div class="form-field"><label for="signup-campus">Campus</label><input id="signup-campus" readonly></div>
+        </div>
+      </fieldset>
+      <div class="signup-fields">
+        <div class="form-field"><label for="signup-intake">Intake <span aria-hidden="true">*</span></label><select id="signup-intake" required aria-describedby="signup-intake-error"></select><p class="field-error" id="signup-intake-error"></p></div>
+        <div class="form-field"><label for="signup-name">Full name <span aria-hidden="true">*</span></label><input id="signup-name" name="full_name" autocomplete="name" required minlength="2" aria-describedby="signup-name-error"><p class="field-error" id="signup-name-error"></p></div>
+        <div class="form-field"><label for="signup-email">Email <span aria-hidden="true">*</span></label><input id="signup-email" name="email" type="email" autocomplete="email" required aria-describedby="signup-email-error"><p class="field-error" id="signup-email-error"></p></div>
+        <div class="form-field"><label for="signup-mobile">Singapore mobile <span aria-hidden="true">*</span></label><input id="signup-mobile" name="mobile" type="tel" autocomplete="tel" inputmode="tel" placeholder="+65 9123 4567" required aria-describedby="signup-mobile-error"><p class="field-error" id="signup-mobile-error"></p></div>
+        <div class="form-field"><label for="signup-experience">Experience <span aria-hidden="true">*</span></label><select id="signup-experience" required aria-describedby="signup-experience-error"><option value="">Choose one</option><option>None</option><option>Some</option><option>Confident</option></select><p class="field-error" id="signup-experience-error"></p></div>
+        <div class="form-field"><label for="signup-allergies">Allergies</label><textarea id="signup-allergies" rows="2" aria-describedby="allergy-warning"></textarea></div>
+      </div>
+      <p id="allergy-warning" class="allergy-warning" role="status" hidden>This course uses or may contain nuts. Please contact us about your allergy before attending.</p>
+      <div class="form-field checkbox-field"><label><input id="signup-consent" type="checkbox" required aria-describedby="signup-consent-error"> I agree to be contacted about this sign-up. <span aria-hidden="true">*</span></label><p class="field-error" id="signup-consent-error"></p></div>
+      <div class="form-field checkbox-field"><label><input id="signup-newsletter" type="checkbox"> I would like to receive marketing and newsletter emails.</label></div>
+      <p id="signup-form-error" class="field-error" role="alert"></p>
+      <button class="button button-primary" type="submit">Save sign-up</button>
+    </form>
+    <div id="signup-success" role="status" aria-live="polite" hidden>
+      <h3>Sign-up saved on this device</h3>
+      <p>Your reference is <strong id="signup-reference"></strong>.</p>
+      <p>This sign-up has not been sent. Use the email link to contact the academy with your details.</p>
+      <a id="signup-mailto" class="button button-primary" href="">Email your sign-up</a>
+    </div>
+  </dialog>
+  <footer class="site-footer"><span>Cook &amp; Bake Academy</span><span>Learn it by making it.</span><a href="admin.html">Sign-ups on this device</a></footer>
 </body>
 </html>

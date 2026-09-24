@@ -11,7 +11,7 @@
 
 Cook & Bake Academy is a responsive catalogue for proposed hands-on cooking and baking classes in Singapore. It presents 20 courses across Bakery and Cooking, with schedules, teaching time, campuses, and total fees. The course details and fees are illustrative catalogue data, not verified sales or a live booking system.
 
-Visitors can filter by category, search the catalogue, and use the on-page course finder to match a topic to courses. The course finder uses local keyword matching; it does not call an AI service or collect visitor details.
+Visitors can filter by category, search the catalogue, and use the on-page course finder to match a topic to courses. The course finder uses local keyword matching; it does not call an AI service. Each course card also opens a sign-up form. Sign-ups are saved only in that browser's local storage, with a reference number and an email link for the visitor to contact the academy. The local `dist/admin.html` page lists and exports sign-ups from the same browser.
 
 ## Architecture
 
@@ -22,9 +22,11 @@ Visitors can filter by category, search the catalogue, and use the on-page cours
 ├── .github/workflows/deploy-pages.yml      # GitHub Pages deployment
 ├── .openai/hosting.json                    # Separate Sites configuration
 ├── dist/
-│   ├── index.html                          # Page structure and content
+│   ├── index.html                          # Page structure and sign-up dialog
+│   ├── admin.html                          # Local sign-up list and CSV export
 │   ├── css/styles.css                      # Brand styles and responsive layout
 │   ├── js/app.js                            # Catalogue rendering and interactions
+│   ├── js/admin.js                          # Local sign-up CSV export
 │   └── data/courses.json                   # Single source for course fees and details
 └── README.md
 ```
@@ -58,4 +60,4 @@ Pushes to `main` run the [GitHub Pages workflow](.github/workflows/deploy-pages.
 
 ## Security and data
 
-The site is static and has no login, payment handling, visitor data storage, or API keys. Before publishing, scan the proposed files and Git history for secrets, review the exact staged paths, and verify the deployed artifact. Do not put credentials, real customer data, or answer keys in `dist/`.
+The site is static and has no login, payment handling, backend, or API keys. Sign-up details are stored in the visitor's browser under `cb_signups`; they are not sent to the academy until the visitor uses the email link. Anyone using that browser can view the details at `admin.html`, so it is not a secure shared administration system. Clearing browser storage removes the records. Before publishing, scan the proposed files and Git history for secrets, review the exact staged paths, and verify the deployed artifact. Do not put credentials, real customer data, or answer keys in `dist/`.
