@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FBF7F1">
+  <meta name="description" content="Hands-on cooking and baking courses at Orchard Road and Bukit Timah in Singapore.">
+  <title>Cook &amp; Bake Academy | Hands-on classes in Singapore</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23b5652d'/%3E%3Ctext x='50' y='66' font-size='54' text-anchor='middle' fill='white' font-family='Georgia'%3EC%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="Cook and Bake Academy, back to top">Cook <span>&amp;</span> Bake<small>ACADEMY</small></a>
+    <nav aria-label="Main navigation">
+      <a href="#courses">Courses</a>
+      <a href="#campuses">Campuses</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">COOK &amp; BAKE ACADEMY · SINGAPORE</p>
+        <h1 id="hero-title">Good food starts with hands-on learning.</h1>
+        <p class="hero-pitch">Build kitchen confidence in small, practical classes at Orchard Road and Bukit Timah.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#courses">Browse courses</a>
+          <button class="button button-outline" id="open-assistant" type="button">Ask our course assistant</button>
+        </div>
+        <p class="hero-note">From one-session workshops to longer courses. Find a class that fits your week.</p>
+      </div>
+      <div class="hero-collage" aria-hidden="true">
+        <img class="hero-photo hero-photo-tall" src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="" width="900" height="1100" fetchpriority="high">
+        <img class="hero-photo" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&amp;fit=crop&amp;w=600&amp;q=70" alt="" width="600" height="600">
+        <img class="hero-photo" src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&amp;fit=crop&amp;w=600&amp;q=70" alt="" width="600" height="600">
+      </div>
+    </section>
+
+    <section class="courses-section" id="courses" aria-labelledby="courses-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">THE CATALOGUE</p>
+          <h2 id="courses-title">Find your next class</h2>
+          <p>Learn a useful skill, make something good, and take it home.</p>
+        </div>
+        <p class="section-aside">Small classes · practical teaching · two campuses</p>
+      </div>
+      <div class="catalogue-tools">
+        <div class="filter-chips" role="group" aria-label="Course category">
+          <button class="chip is-active" type="button" data-category="All" aria-pressed="true">All</button>
+          <button class="chip" type="button" data-category="Bakery" aria-pressed="false">Bakery</button>
+          <button class="chip" type="button" data-category="Cooking" aria-pressed="false">Cooking</button>
+        </div>
+        <div class="search-field">
+          <label for="course-search">Search courses</label>
+          <input id="course-search" type="search" placeholder="Try sourdough or knife skills" autocomplete="off">
+        </div>
+      </div>
+      <p id="result-count" class="result-count" role="status" aria-live="polite">Loading courses…</p>
+      <div id="course-grid" class="course-grid"></div>
+      <p id="empty-state" class="empty-state" hidden>No courses match your search. Try another word or category.</p>
+    </section>
+
+    <section class="campuses-section" id="campuses" aria-labelledby="campuses-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">WHERE WE TEACH</p>
+          <h2 id="campuses-title">Two places to get cooking</h2>
+        </div>
+      </div>
+      <div class="campus-grid">
+        <article class="campus-card"><span class="campus-number">01 / BAKERY</span><h3>Orchard Road</h3><p>Bread, pastry, cakes and small bakes. Come ready to work with dough and take your work home.</p></article>
+        <article class="campus-card"><span class="campus-number">02 / COOKING</span><h3>Bukit Timah</h3><p>Everyday cooking skills and cuisines from around the world. Build techniques you can repeat at home.</p></article>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq" aria-labelledby="faq-title">
+      <p class="eyebrow">HELPFUL DETAILS</p>
+      <h2 id="faq-title">Frequently asked questions</h2>
+      <div id="faq-list" aria-label="FAQ entries"></div>
+    </section>
+  </main>
+  <dialog class="assistant-dialog" id="assistant-dialog" aria-labelledby="assistant-title">
+    <div class="assistant-head">
+      <div><p class="eyebrow">COURSE FINDER</p><h2 id="assistant-title">What would you like to learn?</h2></div>
+      <button type="button" id="close-assistant" class="dialog-close" aria-label="Close course assistant">×</button>
+    </div>
+    <p>Tell us a skill or topic, such as bread, Thai food, or beginner baking. We’ll find courses in the catalogue.</p>
+    <form id="assistant-form">
+      <label for="assistant-query">Your interest</label>
+      <div class="assistant-input-row"><input id="assistant-query" type="search" required placeholder="e.g. sourdough"><button class="button button-primary" type="submit">Find courses</button></div>
+    </form>
+    <div id="assistant-results" role="status" aria-live="polite"></div>
+  </dialog>
+  <footer class="site-footer"><span>Cook &amp; Bake Academy</span><span>Learn it by making it.</span></footer>
+</body>
+</html>
