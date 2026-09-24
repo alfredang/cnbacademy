@@ -1,5 +1,6 @@
 # Local browser and hosting artifacts
 .playwright-cli/
+node_modules/
 .sites-runtime/
 .sites-checkout/
 

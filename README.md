@@ -11,7 +11,7 @@
 
 Cook & Bake Academy is a responsive catalogue for proposed hands-on cooking and baking classes in Singapore. It presents 20 courses across Bakery and Cooking, with schedules, teaching time, campuses, and total fees. The course details and fees are illustrative catalogue data, not verified sales or a live booking system.
 
-Visitors can filter by category, search the catalogue, and use the on-page course finder to match a topic to courses. The course finder uses local keyword matching; it does not call an AI service. Each course card also opens a sign-up form. Sign-ups are saved only in that browser's local storage, with a reference number and an email link for the visitor to contact the academy. The local `dist/admin.html` page lists and exports sign-ups from the same browser.
+Visitors can filter by category and search the catalogue. A corner course assistant opens the generated SQLite database in browser memory and answers with extractive FTS results or course-table facts; it does not call an AI service. Each course card also opens a sign-up form. Sign-ups are saved only in that browser's local storage, with a reference number and an email link for the visitor to contact the academy. The local `dist/admin.html` page lists and exports sign-ups from the same browser.
 
 ## Architecture
 
@@ -21,21 +21,32 @@ Visitors can filter by category, search the catalogue, and use the on-page cours
 ├── .agents/skills/publish-to-github/       # Codex skill entry point
 ├── .github/workflows/deploy-pages.yml      # GitHub Pages deployment
 ├── .openai/hosting.json                    # Separate Sites configuration
+├── kb/                                     # Markdown policies, FAQs, campuses and course brochures
+├── scripts/build-kb.mjs                    # Build the SQLite FTS database
+├── scripts/eval.mjs                        # Evaluate the shared search module
+├── eval/golden-questions.csv               # Course assistant questions
 ├── dist/
 │   ├── index.html                          # Page structure and sign-up dialog
 │   ├── admin.html                          # Local sign-up list and CSV export
 │   ├── css/styles.css                      # Brand styles and responsive layout
 │   ├── js/app.js                            # Catalogue rendering and interactions
+│   ├── js/chat.js                           # Browser SQLite chat panel
+│   ├── js/rag.js                            # Shared FTS query and answer logic
 │   ├── js/admin.js                          # Local sign-up CSV export
-│   └── data/courses.json                   # Single source for course fees and details
+│   ├── vendor/                              # Official SQLite WASM browser files
+│   └── data/
+│       ├── courses.json                   # Single source for course fees and details
+│       └── academy.db                     # Generated SQLite knowledge base
 └── README.md
 ```
 
 The browser loads `data/courses.json` with `fetch()`. `app.js` renders the cards, filters and search results from that data, and calculates teaching hours from each course's schedule and number of weeks. No course fee is hard-coded in the HTML or JavaScript.
 
+The generated `dist/data/academy.db` contains one FTS5 chunk per `##` section in each `kb/` Markdown file and a `courses` table populated from `dist/data/courses.json`. Rebuild it with `npm ci` followed by `npm run build:kb`. To print the top FTS hit for three sample queries, run `npm run build:kb -- --test`. Run `npm run eval:kb` for the 30-question retrieval check. The knowledge base and catalogue describe an illustrative academy; their addresses, policies, dates and prices are not verified sales information.
+
 ## Run locally
 
-**Requirements:** Python 3 and a modern browser. There is no package installation or build step.
+**Requirements:** Python 3 and a modern browser to view the site. Rebuilding the knowledge base also requires Node.js and npm.
 
 1. Clone the repository and enter it:
 

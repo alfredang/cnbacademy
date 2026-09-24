@@ -4,9 +4,6 @@ const emptyState = document.querySelector('#empty-state');
 const search = document.querySelector('#course-search');
 const chips = [...document.querySelectorAll('[data-category]')];
 const amount = new Intl.NumberFormat('en-SG', { maximumFractionDigits: 0 });
-const assistantDialog = document.querySelector('#assistant-dialog');
-const assistantQuery = document.querySelector('#assistant-query');
-const assistantResults = document.querySelector('#assistant-results');
 const signupDialog = document.querySelector('#signup-dialog');
 const signupForm = document.querySelector('#signup-form');
 const signupSuccess = document.querySelector('#signup-success');
@@ -218,47 +215,6 @@ signupForm.addEventListener('submit', event => {
   } catch {
     document.querySelector('#signup-form-error').textContent = 'Could not save the sign-up on this device. Check browser storage and try again.';
   }
-});
-
-document.querySelector('#open-assistant').addEventListener('click', () => assistantDialog.showModal());
-document.querySelector('#close-assistant').addEventListener('click', () => assistantDialog.close());
-document.querySelector('#assistant-form').addEventListener('submit', event => {
-  event.preventDefault();
-  const words = assistantQuery.value.toLocaleLowerCase().match(/[\p{L}\p{N}]+/gu) || [];
-  const usefulWords = words.filter(word => word.length > 2 && !['the', 'and', 'for', 'with', 'course', 'class', 'want', 'learn'].includes(word));
-  const ranked = courses.map(course => {
-    const title = course.title.toLocaleLowerCase();
-    const description = [course.cat, course.level, course.summary, ...course.learn].join(' ').toLocaleLowerCase();
-    const score = usefulWords.reduce((total, word) => total + (title.includes(word) ? 3 : 0) + (description.includes(word) ? 1 : 0), 0);
-    return { course, score };
-  }).filter(item => item.score > 0).sort((a, b) => b.score - a.score).slice(0, 3);
-
-  assistantResults.replaceChildren();
-  const message = document.createElement('p');
-  message.textContent = ranked.length ? 'These courses may fit:' : 'No close match yet. Try a skill, cuisine, or level.';
-  assistantResults.append(message);
-  if (!ranked.length) return;
-  const list = document.createElement('ul');
-  ranked.forEach(({ course }) => {
-    const item = document.createElement('li');
-    const link = document.createElement('a');
-    link.href = `#${course.code}`;
-    link.textContent = `${course.title} · ${course.weeks} ${course.weeks === 1 ? 'week' : 'weeks'} · S$${amount.format(course.fee)}`;
-    link.addEventListener('click', () => {
-      category = 'All';
-      search.value = '';
-      chips.forEach(chip => {
-        const active = chip.dataset.category === 'All';
-        chip.classList.toggle('is-active', active);
-        chip.setAttribute('aria-pressed', String(active));
-      });
-      render();
-      assistantDialog.close();
-    });
-    item.append(link);
-    list.append(item);
-  });
-  assistantResults.append(list);
 });
 
 fetch('data/courses.json')
