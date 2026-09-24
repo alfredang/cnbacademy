@@ -1,0 +1,15 @@
+# Local browser and hosting artifacts
+.playwright-cli/
+.sites-runtime/
+.sites-checkout/
+
+# Local credentials and private keys
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Generated release archives
+*.tar.gz
